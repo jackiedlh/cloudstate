@@ -486,7 +486,8 @@ lazy val `proxy-spanner` = (project in file("proxy/spanner"))
     libraryDependencies ++= Seq(
       "com.lightbend.akka" %% "akka-persistence-spanner" % AkkaPersistenceSpannerVersion,
       "com.lightbend.akka.grpc" %% "akka-grpc-runtime" % AkkaGrpcVersion, // Can be removed when a post-0.8.4 version comes in (e.g. via akka-persistence-spanner)
-      akkaDependency("akka-cluster-typed"), // Not sure why this is needed: when running the TCK there was a ClassNotFoundError wrt. akka.cluster.typed.ClusterReceptionist
+      akkaDependency("akka-cluster-typed"), // Transitive dependency of akka-persistence-spanner
+      akkaDependency("akka-persistence-typed"), // Transitive dependency of akka-persistence-spanner
     ),
     fork in run := true,
     mainClass in Compile := Some("io.cloudstate.proxy.spanner.CloudstateSpannerProxyMain"),
